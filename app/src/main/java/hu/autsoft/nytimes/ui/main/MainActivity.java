@@ -1,7 +1,9 @@
-package hu.autsoft.nytimes;
+package hu.autsoft.nytimes.ui.main;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import hu.autsoft.nytimes.R;
 
 public class MainActivity extends AppCompatActivity {
 
