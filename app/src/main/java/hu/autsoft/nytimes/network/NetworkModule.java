@@ -15,6 +15,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import hu.autsoft.nytimes.exception.OkHttpException;
+import hu.autsoft.nytimes.network.api.MostViewedApi;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -85,6 +86,12 @@ public abstract class NetworkModule {
     @Singleton
     static Converter.Factory provideGsonConverterFactory(final Gson gson) {
         return GsonConverterFactory.create(gson);
+    }
+
+    @Provides
+    @Singleton
+    static MostViewedApi provideMostViewedApi(Retrofit retrofit) {
+        return retrofit.create(MostViewedApi.class);
     }
 
     @Qualifier
