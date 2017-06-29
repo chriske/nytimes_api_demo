@@ -2,7 +2,7 @@
 <resources>
 
     <string name="config_service_endpoint_address">http://api.nytimes.com</string>
-    <string name="config_service_endpoint_path">/svc/</string>
+    <string name="config_service_endpoint_path">/svc/mostpopular/v2/</string>
 
     <string name="config_gson_date_format">yyyy-MM-dd</string>
 

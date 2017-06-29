@@ -8,8 +8,10 @@ import javax.inject.Singleton;
 import dagger.BindsInstance;
 import dagger.Component;
 import hu.autsoft.nytimes.network.NetworkModule;
+import hu.autsoft.nytimes.network.interceptor.ApiKeyProviderInterceptor;
 import hu.autsoft.nytimes.ui.UIModule;
 import hu.autsoft.nytimes.ui.main.MainActivity;
+import hu.autsoft.nytimes.ui.main.MainPresenter;
 
 @Singleton
 @Component(modules = {
@@ -19,6 +21,10 @@ import hu.autsoft.nytimes.ui.main.MainActivity;
 
 public interface AppComponent {
     void inject(final MainActivity activity);
+
+    void inject(ApiKeyProviderInterceptor apiKeyProviderInterceptor);
+
+    void inject(MainPresenter mainPresenter);
 
     @Component.Builder
     interface Builder {

@@ -16,6 +16,7 @@ import dagger.Module;
 import dagger.Provides;
 import hu.autsoft.nytimes.exception.OkHttpException;
 import hu.autsoft.nytimes.network.api.MostViewedApi;
+import hu.autsoft.nytimes.network.interceptor.ApiKeyProviderInterceptor;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -63,8 +64,14 @@ public abstract class NetworkModule {
 
     @Provides
     @Singleton
+    @NetworkModule.InterceptorApiKeyProvider
+    static Interceptor provideApiKeyInterceptor() { return new ApiKeyProviderInterceptor(); }
+
+    @Provides
+    @Singleton
     static OkHttpClient.Builder provideOkHttpClientBuilder(@InterceptorStetho final Interceptor stethoInterceptor,
-                                                           @InterceptorHttpLogging final Interceptor httpLoggingInterceptor) {
+                                                           @InterceptorHttpLogging final Interceptor httpLoggingInterceptor,
+                                                           @InterceptorApiKeyProvider final Interceptor apiKeyProvider) {
         OkHttpClient.Builder clientBuilder;
 
         try {
@@ -76,6 +83,7 @@ public abstract class NetworkModule {
 
         clientBuilder.addNetworkInterceptor(stethoInterceptor);
         clientBuilder.interceptors().add(httpLoggingInterceptor);
+        clientBuilder.interceptors().add(apiKeyProvider);
         clientBuilder.connectTimeout(30, TimeUnit.SECONDS);
         clientBuilder.readTimeout(30, TimeUnit.SECONDS);
 
@@ -102,6 +110,12 @@ public abstract class NetworkModule {
     @Qualifier
     @Retention(RetentionPolicy.RUNTIME)
     public @interface InterceptorHttpLogging {
+    }
+
+    @Qualifier
+    @Retention(RetentionPolicy.RUNTIME)
+    public @interface InterceptorApiKeyProvider {
+
     }
 
     @Qualifier

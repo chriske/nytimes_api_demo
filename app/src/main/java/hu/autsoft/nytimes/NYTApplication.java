@@ -24,8 +24,6 @@ public class NYTApplication extends Application {
                     .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
                     .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(this))
                     .build());
-        } else {
-            // Fabric.with(this, new Crashlytics());
         }
     }
 
