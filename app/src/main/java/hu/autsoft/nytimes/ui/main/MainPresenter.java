@@ -17,19 +17,20 @@ public class MainPresenter extends Presenter<MainScreen> {
 
     public static final String TAG = MainPresenter.class.getSimpleName();
 
-    @Inject
-    MostViewedApi mostViewedApi;
+    private MostViewedApi mostViewedApi;
 
     @Inject
-    public MainPresenter() {
-        NYTApplication.injector.inject(this);
+    public MainPresenter(MostViewedApi mostViewedApi) {
+        this.mostViewedApi = mostViewedApi;
     }
 
     public void getArticles() {
         mostViewedApi.getMostViewedArticles("all-sections", 7).enqueue(new Callback<MostViewedResponse>() {
             @Override
             public void onResponse(Call<MostViewedResponse> call, Response<MostViewedResponse> response) {
-                Log.d(TAG, response.body().getArticles().toString());
+                if (screen != null) {
+                    screen.onArticlesArrived(response.body().getArticles());
+                }
             }
 
             @Override
