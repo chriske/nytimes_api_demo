@@ -38,4 +38,8 @@ public class NYTApplication extends Application {
         Context context = getApplicationContext();
         return context.getString(R.string.config_service_endpoint_address) + context.getString(R.string.config_service_endpoint_path);
     }
+
+    protected void injectDependencies(final AppComponent appComponent) {
+        appComponent.inject(this);
+    }
 }

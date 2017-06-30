@@ -29,6 +29,8 @@ public interface AppComponent {
 
     void inject(ArticleListAdapter articleListAdapter);
 
+    void inject(NYTApplication nytApplication);
+
     @Component.Builder
     interface Builder {
         @BindsInstance

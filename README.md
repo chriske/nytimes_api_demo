@@ -22,6 +22,12 @@ The application has separated components. These components are managed by the DI
 The UI has been implemented with MVP design pattern. These two solutions providing us the ability
 to test the application without real networking. Every part of the structure is mockable.
 
+## Unit testing
+
+There is 3 simple example unit tests to test the mockable network calls. If you want to run them,
+just call this gradle task in the project's root folder:
+`./gradlew testDevDebugUnitTest`
+
 ## Dependencies
 
 The application uses these 3rd party libraries:
