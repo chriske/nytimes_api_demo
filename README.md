@@ -40,5 +40,18 @@ The application uses these 3rd party libraries:
 -   Picasso for image downloading
 -   ChromeCustomTabs to show the article in a browser
 
+## Further improvements:
+Because of time limitations, I couldn't finish the whole job. There are a lot of possible improvements:
+
+-   UI testing, with the same mocked network call
+-   About screen with the licenses of the used libraries
+-   Copyright notice
+-   Tablet compatible layout
+
+## Copyright:
+
+The application made for demo purposes, and the API is belongs to The New York Times.
+
+Inotay Krisztián - 2017
 
  
