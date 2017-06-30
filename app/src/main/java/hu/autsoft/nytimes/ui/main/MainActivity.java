@@ -16,10 +16,11 @@ import butterknife.ButterKnife;
 import hu.autsoft.nytimes.NYTApplication;
 import hu.autsoft.nytimes.R;
 import hu.autsoft.nytimes.model.Article;
+import hu.autsoft.nytimes.ui.BaseActivity;
 import hu.autsoft.nytimes.ui.main.adapter.ArticleItemViewHolder;
 import hu.autsoft.nytimes.ui.main.adapter.ArticleListAdapter;
 
-public class MainActivity extends AppCompatActivity implements MainScreen, ArticleItemViewHolder.ArticleClickedListener{
+public class MainActivity extends BaseActivity implements MainScreen, ArticleItemViewHolder.ArticleClickedListener{
 
     @Inject
     MainPresenter presenter;
@@ -48,12 +49,19 @@ public class MainActivity extends AppCompatActivity implements MainScreen, Artic
                 swipeRefreshLayout.setRefreshing(true);
             }
         });
+
+        adapter = new ArticleListAdapter(this);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        articlesList.setLayoutManager(mLayoutManager);
+        articlesList.setItemAnimator(new DefaultItemAnimator());
+        articlesList.setAdapter(adapter);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         presenter.attachScreen(this);
+        showProgressDialog();
         presenter.getArticles();
     }
 
@@ -64,19 +72,35 @@ public class MainActivity extends AppCompatActivity implements MainScreen, Artic
     }
 
     @Override
-    public void onArticlesArrived(ArrayList<Article> articles) {
-        swipeRefreshLayout.setRefreshing(false);
+    public void onArticleRequestError(int code) {
+        hideProgressIndicators();
 
-        adapter = new ArticleListAdapter(this);
+        switch (code) {
+            case MainPresenter.NETWORK_ERROR: {
+                showDialog(getString(R.string.error_title), getString(R.string.error));
+                break;
+            }
+
+            case MainPresenter.RESPONSE_ERROR: {
+                showDialog(getString(R.string.response_error_title), getString(R.string.response_error));
+                break;
+            }
+        }
+    }
+
+    @Override
+    public void onArticlesArrived(ArrayList<Article> articles) {
+        hideProgressIndicators();
         adapter.setArticles(articles);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-        articlesList.setLayoutManager(mLayoutManager);
-        articlesList.setItemAnimator(new DefaultItemAnimator());
-        articlesList.setAdapter(adapter);
     }
 
     @Override
     public void onArticleClicked(int pos) {
 
+    }
+
+    private void hideProgressIndicators() {
+        swipeRefreshLayout.setRefreshing(false);
+        removeProgressDialog();
     }
 }
