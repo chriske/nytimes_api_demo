@@ -1,5 +1,7 @@
 package hu.autsoft.nytimes.ui.main;
 
+import android.net.Uri;
+import android.support.customtabs.CustomTabsIntent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -42,6 +44,10 @@ public class MainActivity extends BaseActivity implements MainScreen, ArticleIte
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
+        initUIComponents();
+    }
+
+    private void initUIComponents() {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -96,7 +102,9 @@ public class MainActivity extends BaseActivity implements MainScreen, ArticleIte
 
     @Override
     public void onArticleClicked(int pos) {
-
+        CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+        CustomTabsIntent customTabsIntent = builder.build();
+        customTabsIntent.launchUrl(this, Uri.parse(adapter.getItemAtPosition(pos).getUrl()));
     }
 
     private void hideProgressIndicators() {
