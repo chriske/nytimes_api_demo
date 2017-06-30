@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">NYTimes</string>
+    <string name="ok">OK</string>
+    <string name="loading">Loading</string>
+    <string name="please_wait">Please wait!</string>
+    <string name="error_title">Error</string>
+    <string name="error">There is an error in your Internet connection, please check it, and try again!</string>
+    <string name="response_error_title">Warning</string>
+    <string name="response_error">Something is wrong with the server, please try again!</string>
+
+</resources>
