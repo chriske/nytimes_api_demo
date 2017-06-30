@@ -2,7 +2,7 @@
 
 This is a demo Android application to download and show articles from the NYTimes API.
 
-![](img/device-2017-06-30-103532.png=450x)
+![](img/device-2017-06-30-103532.png =450x)
 
 If you want to try it out, you need to have a `NYTimes API key`. You can get one from here:
 https://developer.nytimes.com/signup (you have to choose the `Most popular` API)
